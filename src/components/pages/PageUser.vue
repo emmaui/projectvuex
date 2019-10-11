@@ -1,0 +1,37 @@
+<template lang="pug">
+  .user-page
+    h1 This page is for user
+    h2 you are {{ $route.params.name}}
+    h3 hahahaha
+    //- h2(v-if="user") You enter by id {{user}}
+    h2(v-if="user") You enter by id {{user.name}}
+    div
+      h3(v-for="todo in userTodos") {{todo.title}}
+</template>
+
+<script>
+import{mapState,mapMutations,mapActions} from 'vuex'
+export default {
+  data(){
+    return {
+      users: [
+        {id: 1, name: "John"},
+        {id: 2, name: "Tom"}
+      ]      
+    }
+  },
+  computed:{
+    ...mapState(['todos']),
+    user(){
+      return this.users.find(user=>user.id==this.$route.params.num)
+    },
+    userTodos(){
+      return this.todos.filter(todo=>todo.userId==this.$route.params.num)
+    }
+  }
+}
+</script>
+
+<style lang="sass">
+
+</style>
